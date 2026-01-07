@@ -1,0 +1,6 @@
+@steingardinvest_HostAddress = http://localhost:5092
+
+GET {{steingardinvest_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
