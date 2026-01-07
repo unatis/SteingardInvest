@@ -43,9 +43,7 @@ function handleLogin(event) {
     // Here you would typically send this to your backend API
     console.log('Login attempt:', { email, password });
     
-    // For now, just show an alert and redirect (you'll implement actual auth later)
-    alert('Login feature will be connected to API. Email: ' + email);
-    
+    // For now, allow login without validation and redirect to dashboard
     // In production, you would do something like:
     // fetch('/api/auth/login', {
     //     method: 'POST',
@@ -55,9 +53,13 @@ function handleLogin(event) {
     // .then(response => response.json())
     // .then(data => {
     //     if (data.success) {
-    //         window.location.href = '/dashboard';
+    //         window.location.href = '/dashboard.html';
     //     }
     // });
+    
+    // Close modal and redirect to dashboard
+    closeLoginModal();
+    window.location.href = '/dashboard';
 }
 
 // Navbar scroll effect
