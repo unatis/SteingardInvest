@@ -1,138 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Steingard Invest</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dashboard.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real Estate Trading Terminal</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
-    <!-- Dashboard Header -->
-    <header class="dashboard-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <span class="logo-text">Steingard<span class="logo-accent">Invest</span></span>
-                </div>
-                <div class="header-actions">
-                    <button class="btn-icon" title="Notifications">
-                        <span>🔔</span>
-                    </button>
-                    <button class="btn-icon" title="Profile">
-                        <span>👤</span>
-                    </button>
-                    <button class="btn-logout" onclick="logout()">Logout</button>
-                </div>
-            </div>
-        </div>
+<body class="terminal-body">
+  <div class="terminal-shell">
+    <header class="terminal-topbar">
+      <div class="topbar-left">
+        <div class="brand">Steingard<span>Invest</span></div>
+        <div class="chip">Real Estate Trading</div>
+      </div>
+      <div class="topbar-center">
+        <span class="chip">Online Value: $56,456.43</span>
+        <span class="chip up">Daily P/L: +73.84 USD</span>
+        <span class="chip">Buying Power: 3 USD</span>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-ghost">Alerts</button>
+        <button class="btn-ghost">Profile</button>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+      </div>
     </header>
 
-    <!-- Search and Filters Section -->
-    <section class="search-section">
-        <div class="container">
-            <div class="search-container">
-                <div class="search-bar">
-                    <input type="text" id="searchInput" placeholder="Search properties by location, type, or name..." class="search-input">
-                    <button class="search-btn" onclick="performSearch()">🔍</button>
-                </div>
-                <button class="btn-filter-toggle" onclick="toggleFilters()">
-                    <span>⚙️</span> Filters
-                </button>
-            </div>
-            
-            <!-- Filters Panel -->
-            <div id="filtersPanel" class="filters-panel">
-                <div class="filters-grid">
-                    <div class="filter-group">
-                        <label>Property Type</label>
-                        <select id="filterType" class="filter-select">
-                            <option value="">All Types</option>
-                            <option value="apartment">Apartment</option>
-                            <option value="house">House</option>
-                            <option value="commercial">Commercial</option>
-                            <option value="land">Land</option>
-                            <option value="villa">Villa</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>Location</label>
-                        <select id="filterLocation" class="filter-select">
-                            <option value="">All Locations</option>
-                            <option value="new-york">New York</option>
-                            <option value="los-angeles">Los Angeles</option>
-                            <option value="miami">Miami</option>
-                            <option value="chicago">Chicago</option>
-                            <option value="london">London</option>
-                            <option value="paris">Paris</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>Price Range</label>
-                        <div class="price-range">
-                            <input type="number" id="priceMin" placeholder="Min" class="price-input">
-                            <span>-</span>
-                            <input type="number" id="priceMax" placeholder="Max" class="price-input">
-                        </div>
-                    </div>
-                    <div class="filter-group">
-                        <label>Bedrooms</label>
-                        <select id="filterBedrooms" class="filter-select">
-                            <option value="">Any</option>
-                            <option value="1">1+</option>
-                            <option value="2">2+</option>
-                            <option value="3">3+</option>
-                            <option value="4">4+</option>
-                            <option value="5">5+</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label>Sort By</label>
-                        <select id="sortBy" class="filter-select">
-                            <option value="price-asc">Price: Low to High</option>
-                            <option value="price-desc">Price: High to Low</option>
-                            <option value="newest">Newest First</option>
-                            <option value="oldest">Oldest First</option>
-                        </select>
-                    </div>
-                    <div class="filter-actions">
-                        <button class="btn btn-primary" onclick="applyFilters()">Apply Filters</button>
-                        <button class="btn btn-secondary" onclick="clearFilters()">Clear</button>
-                    </div>
-                </div>
-            </div>
+    <div class="terminal-grid">
+      <aside class="terminal-left">
+        <div class="panel-header">
+          <h3>Market Watch</h3>
+          <input class="search-input" id="searchInput" placeholder="Search assets..." />
         </div>
-    </section>
+        <div id="marketList" class="market-list"></div>
+      </aside>
 
-    <!-- Properties Catalog -->
-    <main class="dashboard-main">
-        <div class="container">
-            <div class="catalog-header">
-                <h1>Real Estate Catalog</h1>
-                <div class="results-info">
-                    <span id="resultsCount">0</span> properties found
-                </div>
-            </div>
-            
-            <div id="propertiesGrid" class="properties-grid">
-                <!-- Properties will be loaded here -->
-            </div>
+      <main class="terminal-center">
+        <div class="panel-header">
+          <div>
+            <h2 id="chartTitle">PHOENIX - PHO</h2>
+            <div class="sub">Delay 15 min</div>
+          </div>
+          <div class="price-box">
+            <div class="price" id="chartPrice">14,470</div>
+            <div class="change up" id="chartChange">+0.14%</div>
+          </div>
         </div>
-    </main>
 
-    <!-- Property Detail Modal -->
-    <div id="propertyModal" class="modal">
-        <div class="modal-content modal-large">
-            <span class="close" onclick="closePropertyModal()">&times;</span>
-            <div id="propertyDetails" class="property-details">
-                <!-- Property details will be loaded here -->
-            </div>
+        <div class="chart-area">
+          <div class="chart-grid"></div>
+          <canvas id="priceChart" class="chart-canvas"></canvas>
         </div>
+
+        <section class="panel table-panel">
+          <div class="panel-header">
+            <h3>Portfolio / Assets</h3>
+          </div>
+          <div class="table-head">
+            <div>Asset</div>
+            <div>Location</div>
+            <div>Price</div>
+            <div>Change</div>
+            <div>Yield</div>
+            <div>Value</div>
+          </div>
+          <div id="portfolioRows" class="table-body"></div>
+        </section>
+      </main>
+
+      <aside class="terminal-right">
+        <div class="panel info-panel">
+          <h3 id="assetName">PHOENIX</h3>
+          <div class="price" id="assetPrice">14,470 USD</div>
+          <div class="change up" id="assetChange">+0.14%</div>
+
+          <div class="actions">
+            <button class="btn-buy">Buy</button>
+            <button class="btn-sell">Sell</button>
+          </div>
+
+          <div class="info-grid">
+            <div><span>Type</span><strong id="assetType">Commercial</strong></div>
+            <div><span>Market Cap</span><strong>36.65B</strong></div>
+            <div><span>Yield</span><strong id="assetYield">9.2%</strong></div>
+            <div><span>Daily High</span><strong>14,540</strong></div>
+            <div><span>Daily Low</span><strong>14,260</strong></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3>News</h3>
+          <p class="muted">Market sentiment stable. Premium demand rises in major cities.</p>
+        </div>
+      </aside>
     </div>
+  </div>
 
-    <script src="js/dashboard.js"></script>
+  <script src="js/dashboard.js"></script>
 </body>
 </html>

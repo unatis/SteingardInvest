@@ -5,20 +5,20 @@
 }
 
 :root {
-    --primary-color: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary-color: #8b5cf6;
-    --accent-color: #ec4899;
+    --primary-color: #1f3a5f;
+    --primary-dark: #162b45;
+    --secondary-color: #5b6d7a;
+    --accent-color: #8c7a5a;
     --text-primary: #1f2937;
     --text-secondary: #6b7280;
-    --bg-light: #f9fafb;
+    --bg-light: #f4f6f8;
     --bg-white: #ffffff;
-    --border-color: #e5e7eb;
-    --gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+    --border-color: #e2e8f0;
+    --gradient: linear-gradient(135deg, #2b2a29 0%, #6f5c3e 45%, #c2a060 100%);
     --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
 }
 
 body {
@@ -107,17 +107,32 @@ body {
     align-items: center;
     padding-top: 80px;
     overflow: hidden;
+    z-index: 0;
 }
 
 .hero-background {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: var(--gradient);
-    opacity: 0.1;
-    z-index: -1;
+    opacity: 0.8;
+    z-index: 0;
+}
+
+.hero-background::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url('../images/hero-realestate.png');
+    background-size: cover;
+    background-position: center;
+    /*opacity: 0.32;*/
+    /*filter: grayscale(0.2) contrast(1.05);*/
+    /* mix-blend-mode: multiply; */
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
 }
 
 .hero-overlay {
