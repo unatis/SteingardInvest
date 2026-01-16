@@ -14,8 +14,19 @@
   <div class="terminal-shell">
     <header class="terminal-topbar">
       <div class="topbar-left">
+        <button class="hamburger" onclick="toggleMenu()" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+        <div id="hamburgerMenu" class="hamburger-menu">
+            <button type="button" class="menu-item">Sell real estate</button>
+            <button type="button" class="menu-item">Manage account</button>
+            <button type="button" class="menu-item">Settings</button>
+            <button type="button" class="menu-item">Contact</button>
+            <button type="button" class="menu-item">Tutorial</button>
+            <button type="button" class="menu-item menu-exit" onclick="logout()">Exit</button>
+        </div>
         <div class="brand">Steingard<span>Invest</span></div>
-        <div class="chip">Real Estate Trading</div>
+        <button type="button" class="chip chip-button btn-buy">Sell real estate</button>
       </div>
       <div class="topbar-center">
         <span class="chip">Online Value: $56,456.43</span>
@@ -29,7 +40,7 @@
       </div>
     </header>
 
-    <div class="terminal-grid">
+    <div class="terminal-grid" id="terminalGrid">
       <aside class="terminal-left">
         <div class="panel-header">
           <h3>Market Watch</h3>
@@ -37,6 +48,7 @@
         </div>
         <div id="marketList" class="market-list"></div>
       </aside>
+      <div class="col-resizer" data-resize="left"></div>
 
       <main class="terminal-center">
         <div class="panel-header">
@@ -70,6 +82,7 @@
           <div id="portfolioRows" class="table-body"></div>
         </section>
       </main>
+      <div class="col-resizer" data-resize="right"></div>
 
       <aside class="terminal-right">
         <div class="panel info-panel">

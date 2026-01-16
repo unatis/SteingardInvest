@@ -144,3 +144,85 @@ function drawChart(series) {
 function logout() {
   window.location.href = '/';
 }
+
+function toggleSidebar() {
+  document.body.classList.toggle('sidebar-hidden');
+}
+
+(() => {
+  const grid = document.getElementById('terminalGrid');
+  const resizers = document.querySelectorAll('.col-resizer');
+  if (!grid || resizers.length === 0) return;
+
+  let isDragging = false;
+  let active = null;
+
+  function setGrid(left, center, right) {
+    grid.style.gridTemplateColumns = `${left}px 6px ${center}px 6px ${right}px`;
+  }
+
+  resizers.forEach(r => {
+    r.addEventListener('mousedown', () => {
+      isDragging = true;
+      active = r.dataset.resize;
+      document.body.style.userSelect = 'none';
+    });
+  });
+
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+
+    const rect = grid.getBoundingClientRect();
+    const minLeft = 200;
+    const minRight = 200;
+    const minCenter = 300;
+
+    let left = document.querySelector('.terminal-left').offsetWidth;
+    let center = document.querySelector('.terminal-center').offsetWidth;
+    let right = document.querySelector('.terminal-right').offsetWidth;
+
+    if (active === 'left') {
+      left = Math.max(minLeft, e.clientX - rect.left);
+      center = Math.max(minCenter, rect.width - left - right - 12);
+    }
+
+    if (active === 'right') {
+      right = Math.max(minRight, rect.right - e.clientX);
+      center = Math.max(minCenter, rect.width - left - right - 12);
+    }
+
+    setGrid(left, center, right);
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!isDragging) return;
+    isDragging = false;
+    active = null;
+    document.body.style.userSelect = '';
+  });
+})();
+
+function toggleMenu() {
+  const menu = document.getElementById('hamburgerMenu');
+  if (!menu) return;
+  menu.classList.toggle('open');
+}
+
+document.addEventListener('click', (event) => {
+  const menu = document.getElementById('hamburgerMenu');
+  const hamburger = document.querySelector('.hamburger');
+  if (!menu || !hamburger) return;
+
+  if (hamburger.contains(event.target) || menu.contains(event.target)) {
+    return;
+  }
+
+  menu.classList.remove('open');
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+  const menu = document.getElementById('hamburgerMenu');
+  if (!menu) return;
+  menu.classList.remove('open');
+});
